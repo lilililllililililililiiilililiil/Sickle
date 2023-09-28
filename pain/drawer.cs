@@ -21,7 +21,8 @@ namespace pain
         public PointF point2 = new PointF(10f, 0f);
         public PointF point3 = new PointF(0f, 10f);
         public PointF point4 = new PointF(100f, 100f);
-
+        PointF lastRightClickPoint;
+        PointF currentRightClickPoint;
 
         protected override void OnPaint(PaintEventArgs pe)
         {
@@ -59,12 +60,12 @@ namespace pain
             int sizeWidth = this.Size.Width;
             int sizeHeight = this.Size.Height;
 
-            for (float i = 0; i < sizeWidth + 4; i+= gridPixelSize) 
+            for (float i = 0; i < sizeWidth + gridPixelSize; i+= gridPixelSize) 
             {
                 g.DrawLine(p, i+ displacement.X, 0, i + displacement.X, sizeHeight);
             }
 
-            for (float j = 0; j < sizeHeight + 4; j += gridPixelSize)
+            for (float j = 0; j < sizeHeight+ gridPixelSize; j += gridPixelSize)
             {
                 g.DrawLine(p, 0, j + displacement.Y, sizeWidth, j + displacement.Y);
             }
@@ -76,6 +77,33 @@ namespace pain
 
 
 
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    lastRightClickPoint = e.Location;
+                    break;
+            }
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            switch(e.Button) 
+            {
+                case MouseButtons.Right:
+                    currentRightClickPoint = e.Location;
+                    displacement.X += (currentRightClickPoint.X - lastRightClickPoint.X) * zoom;
+                    displacement.Y += (currentRightClickPoint.Y - lastRightClickPoint.Y) * zoom;
+                    Invalidate();
+                    lastRightClickPoint = e.Location;
+                    break;
+            
+            
+            }
+        }
 
 
         protected override void OnMouseWheel(MouseEventArgs e)
