@@ -1,0 +1,10 @@
+C:\Users\lIIIl\source\repos\pain\pain\bin\Debug\pain.exe.config
+C:\Users\lIIIl\source\repos\pain\pain\bin\Debug\pain.exe
+C:\Users\lIIIl\source\repos\pain\pain\bin\Debug\pain.pdb
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.csproj.AssemblyReference.cache
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.Form1.resources
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.Properties.Resources.resources
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.csproj.GenerateResource.cache
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.csproj.CoreCompileInputs.cache
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.exe
+C:\Users\lIIIl\source\repos\pain\pain\obj\Debug\pain.pdb

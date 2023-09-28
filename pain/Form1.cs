@@ -15,6 +15,7 @@ namespace pain
     {
 
         List<drawer> allDrawers = new List<drawer>();
+        int currentHexant = 0;
         
         public Form1()
         {
@@ -46,32 +47,11 @@ namespace pain
             }
         }
 
-        public int findHexant(PointF mousePos)
-        {
-            int hexantPos = 0;
-            float xPosDec = mousePos.X / this.Width; //gives a percentage on screen you are
-            if (0.6667f <= xPosDec && xPosDec < 1f)
-            {
-                hexantPos += 2;
-            }
-            else if (0.3333f <= xPosDec && xPosDec < 0.6667f)
-            {
-                hexantPos += 1;
-            }
-
-
-            float yPosDec = mousePos.Y / this.Height;
-            if (0.5f <= yPosDec && yPosDec < 1f) 
-            {
-                hexantPos += 3;
-            }
-            return hexantPos;
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //Debug.WriteLine(findHexant(MousePosition));
-            //Debug.WriteLine(MousePosition);
+            
+
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -81,22 +61,47 @@ namespace pain
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    XY.displacement.Y += 7;
+                    allDrawers[currentHexant].displacement.Y += 7;
                     break;
                 case Keys.A:
-                    XY.displacement.X += 7;
+                    allDrawers[currentHexant].displacement.X += 7;
                     break;
                 case Keys.S:
-                    XY.displacement.Y -= 7;
+                    allDrawers[currentHexant].displacement.Y -= 7;
                     break;
                 case Keys.D:
-                    XY.displacement.X -= 7;
+                    allDrawers[currentHexant].displacement.X -= 7;
                     break;
                 default:
                     break;
         
             }
-            XY.Invalidate();
+            allDrawers[currentHexant].Invalidate();
+        }
+
+        private void XY_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 0;
+        }
+        private void XZ_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 1;
+        }
+        private void XW_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 2;
+        }
+        private void YZ_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 3;
+        }
+        private void YW_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 4;
+        }
+        private void ZW_MouseEnter(object sender, EventArgs e)
+        {
+            currentHexant = 5;
         }
     }
 

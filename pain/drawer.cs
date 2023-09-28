@@ -16,7 +16,11 @@ namespace pain
         public float gridSize = 10f;
         float gridPixelZoomFactor = 1f; //This makes it so zoom is now in units/k pixels
         float zoomInFactor = 0.125f;
-        public PointF displacement = new PointF(25f,2f);
+        public PointF displacement = new PointF(0f,0f); //how far everything is displaced off the centre (0,0). This means moving the camera x disp -x
+        public PointF point1 = new PointF(0f,0f);
+        public PointF point2 = new PointF(10f, 0f);
+        public PointF point3 = new PointF(0f, 10f);
+        public PointF point4 = new PointF(100f, 100f);
 
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -24,7 +28,9 @@ namespace pain
 
             base.OnPaint(pe);
             drawGrid(calculateGridPixelSize(zoom, gridSize, gridPixelZoomFactor), pointFToScreenSpace(displacement, zoom, gridPixelZoomFactor), pe.Graphics);
-            
+            pe.Graphics.DrawLine(Pens.Blue, worldSpaceToPixelSpace(point1, zoom, displacement), worldSpaceToPixelSpace(point4, zoom, displacement));
+
+
         }
 
         private float calculateGridPixelSize(float zoom, float gridSize, float gridZoomFactor) 
@@ -43,11 +49,9 @@ namespace pain
         /// <param name="g"></param>
         private void drawGrid(float gridPixelSize, PointF displacement, Graphics g) //Give displacment in screen space
         {
-            Debug.WriteLine(gridPixelSize);
-            Debug.WriteLine(displacement);
+
             displacement.X = displacement.X % gridPixelSize;
             displacement.Y = displacement.Y % gridPixelSize;
-            Debug.WriteLine(displacement);
 
 
             Pen p = new Pen(Color.Black, 0.1f);
@@ -55,14 +59,14 @@ namespace pain
             int sizeWidth = this.Size.Width;
             int sizeHeight = this.Size.Height;
 
-            for (float i = 0; i < sizeWidth + 2; i+= gridPixelSize) 
+            for (float i = 0; i < sizeWidth + 4; i+= gridPixelSize) 
             {
-                g.DrawLine(p, i- displacement.X, 0, i - displacement.X, sizeHeight);
+                g.DrawLine(p, i+ displacement.X, 0, i + displacement.X, sizeHeight);
             }
 
-            for (float j = 0; j < sizeHeight + 2; j += gridPixelSize)
+            for (float j = 0; j < sizeHeight + 4; j += gridPixelSize)
             {
-                g.DrawLine(p, 0, j - displacement.Y, sizeWidth, j - displacement.Y);
+                g.DrawLine(p, 0, j + displacement.Y, sizeWidth, j + displacement.Y);
             }
 
 
@@ -80,13 +84,19 @@ namespace pain
             base.OnMouseWheel(e);
             if (e.Delta > 0 && zoom > zoomInFactor)
             {
+                float oldZoom = zoom;
                 zoom -= zoomInFactor;
+                displacement.X -= ((float)e.X/(float)this.Width) * ((this.Width*oldZoom)- (this.Width * zoom));
+                displacement.Y -= ((float)e.Y / (float)this.Height) * ((this.Height * oldZoom) - (this.Height * zoom));
                 Invalidate();
             }
 
             else if (e.Delta < 0)
             {
+                float oldZoom = zoom;
                 zoom += zoomInFactor;
+                displacement.X -= ((float)e.X / (float)this.Width) * ((this.Width * oldZoom) - (this.Width * zoom));
+                displacement.Y -= ((float)e.Y / (float)this.Height) * ((this.Height * oldZoom) - (this.Height * zoom));
                 Invalidate();
             }
 
@@ -104,10 +114,11 @@ namespace pain
             return displacement;
         }
 
-        public PointF displacementToPixels(PointF displacement, float zoom, float gridPixelZoomFactor, float gridSize) 
+        public PointF worldSpaceToPixelSpace(PointF point, float zoom, PointF displacement) 
         {
-            return PointF.Empty;
+            return new PointF((point.X + displacement.X) / zoom, (point.Y + displacement.Y) / zoom);
         }
+
     }
 
 }

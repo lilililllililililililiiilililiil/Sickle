@@ -81,6 +81,7 @@
             this.XZ.Size = new System.Drawing.Size(260, 235);
             this.XZ.TabIndex = 0;
             this.XZ.TabStop = false;
+            this.XZ.MouseEnter += new System.EventHandler(this.XZ_MouseEnter);
             // 
             // XW
             // 
@@ -90,6 +91,7 @@
             this.XW.Size = new System.Drawing.Size(262, 235);
             this.XW.TabIndex = 1;
             this.XW.TabStop = false;
+            this.XW.MouseEnter += new System.EventHandler(this.XW_MouseEnter);
             // 
             // ZW
             // 
@@ -99,6 +101,7 @@
             this.ZW.Size = new System.Drawing.Size(262, 235);
             this.ZW.TabIndex = 2;
             this.ZW.TabStop = false;
+            this.ZW.MouseEnter += new System.EventHandler(this.ZW_MouseEnter);
             // 
             // YW
             // 
@@ -108,6 +111,7 @@
             this.YW.Size = new System.Drawing.Size(260, 235);
             this.YW.TabIndex = 3;
             this.YW.TabStop = false;
+            this.YW.MouseEnter += new System.EventHandler(this.YW_MouseEnter);
             // 
             // YZ
             // 
@@ -117,6 +121,7 @@
             this.YZ.Size = new System.Drawing.Size(260, 235);
             this.YZ.TabIndex = 4;
             this.YZ.TabStop = false;
+            this.YZ.MouseEnter += new System.EventHandler(this.YZ_MouseEnter);
             // 
             // XY
             // 
@@ -127,6 +132,7 @@
             this.XY.TabIndex = 5;
             this.XY.TabStop = false;
             this.XY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.XY_MouseDown);
+            this.XY.MouseEnter += new System.EventHandler(this.XY_MouseEnter);
             // 
             // gridPlusButton
             // 
